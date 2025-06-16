@@ -18,7 +18,6 @@ public class Contacto {
         this.fotoUri  = fotoUri;
     }
 
-    // getters y setters
     public int    getId()              { return id; }
     public void   setId(int id)        { this.id = id; }
     public String getPais()            { return pais; }

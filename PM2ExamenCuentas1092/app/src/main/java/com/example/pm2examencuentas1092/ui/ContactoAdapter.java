@@ -34,7 +34,6 @@ public class ContactoAdapter extends ArrayAdapter<Contacto> {
         TextView tvPaisTel    = convertView.findViewById(R.id.tvPaisTelItem);
         ImageButton btnOpc    = convertView.findViewById(R.id.btnOpciones);
 
-        // Carga foto desde URI si existe
         if (c.getFotoUri() != null && !c.getFotoUri().isEmpty()) {
             ivFoto.setImageURI(Uri.parse(c.getFotoUri()));
         } else {
@@ -44,7 +43,6 @@ public class ContactoAdapter extends ArrayAdapter<Contacto> {
         tvNombre.setText(c.getNombre());
         tvPaisTel.setText(c.getPais() + " • " + c.getTelefono());
 
-        // Delegamos opciones al Activity
         btnOpc.setOnClickListener(v -> {
             if (ctx instanceof ListaContactosActivity) {
                 ((ListaContactosActivity) ctx).showOpciones(c);

@@ -51,7 +51,6 @@ public class SQLiteConexion extends SQLiteOpenHelper {
         return id;
     }
 
-    // 1. Leer todos los registros
     public List<Contacto> getAllContactos() {
         List<Contacto> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -86,10 +85,22 @@ public class SQLiteConexion extends SQLiteOpenHelper {
         return list;
     }
 
-    // 2. Eliminar un contacto por ID
     public int deleteContacto(int id) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete("Contacto", "id = ?", new String[]{ String.valueOf(id) });
+        db.close();
+        return rows;
+    }
+
+    public int updateContacto(Contacto c) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("pais",     c.getPais());
+        cv.put("nombre",   c.getNombre());
+        cv.put("telefono", c.getTelefono());
+        cv.put("nota",     c.getNota());
+        cv.put("fotoUri",  c.getFotoUri());
+        int rows = db.update("Contacto", cv, "id = ?", new String[]{ String.valueOf(c.getId()) });
         db.close();
         return rows;
     }
