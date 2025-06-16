@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/ivFoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_person"
+                android:scaleType="centerCrop"
+                android:background="@drawable/foto_border" />
+
+            <ImageButton
+                android:id="@+id/btnSeleccionarImagen"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="8dp"
+                android:background="@null"
+                android:src="@drawable/ic_add_circle"
+                android:contentDescription="Seleccionar imagen" />
+        </FrameLayout>
+
+        <!-- País -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="País"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spPais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/paises_array"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Nombre -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre*"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp" />
+
+        <!-- Teléfono -->
+        <EditText
+            android:id="@+id/etTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono*"
+            android:inputType="phone"
+            android:digits="0123456789"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp" />
+
+        <!-- Nota -->
+        <EditText
+            android:id="@+id/etNota"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Nota"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:background="@drawable/edittext_border"
+            android:padding="12dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar Contacto"
+            android:textColor="#FFFFFF"
+            android:background="#4CAF50"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón Contactos Guardados -->
+        <Button
+            android:id="@+id/btnContactos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contactos Salvados"
+            android:textColor="#FFFFFF"
+            android:background="#2196F3" />
+
+    </LinearLayout>
+</ScrollView>
