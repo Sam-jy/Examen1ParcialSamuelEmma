@@ -30,25 +30,83 @@ public class ListaContactosActivity extends AppCompatActivity {
     }
 
     private void cargarLista(ListView lv) {
-        lista  = conexion.getAllContactos();
+        lista = conexion.getAllContactos();
         adapter = new ContactoAdapter(this, lista);
         lv.setAdapter(adapter);
     }
 
-    // Invocado desde el adapter al pulsar el btnOpciones
     public void showOpciones(Contacto c) {
-        String[] items = {"Eliminar", "Compartir"};
+        String[] items = {"Llamar", "Eliminar", "Actualizar", "Compartir", "Ver Imagen"};
         new AlertDialog.Builder(this)
                 .setTitle(c.getNombre())
                 .setItems(items, (dlg, which) -> {
-                    if (which == 0) {
-                        conexion.deleteContacto(c.getId());
-                        cargarLista(findViewById(R.id.lvContactos));
-                    } else {
-                        compartir(c);
+                    switch (which) {
+                        case 0:
+                            confirmarLlamada(c);
+                            break;
+                        case 1:
+                            eliminarContacto(c);
+                            break;
+                        case 2:
+                            actualizarContacto(c);
+                            break;
+                        case 3:
+                            compartir(c);
+                            break;
+                        case 4:
+                            verImagen(c);
+                            break;
                     }
                 })
                 .show();
+    }
+    
+    private void confirmarLlamada(Contacto contacto) {
+        new AlertDialog.Builder(this)
+                .setTitle("Llamar")
+                .setMessage("¿Deseas llamar a " + contacto.getNombre() + "?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:" + contacto.getTelefono()));
+                    startActivity(intent);
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+    
+    private void eliminarContacto(Contacto contacto) {
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar")
+                .setMessage("¿Eliminar contacto " + contacto.getNombre() + "?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    conexion.deleteContacto(contacto.getId());
+                    cargarLista(findViewById(R.id.lvContactos));
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+    
+    private void actualizarContacto(Contacto contacto) {
+        new AlertDialog.Builder(this)
+                .setTitle("Actualizar")
+                .setMessage("Función de actualización para " + contacto.getNombre())
+                .setPositiveButton("OK", null)
+                .show();
+    }
+    
+    private void verImagen(Contacto contacto) {
+        if (contacto.getFotoUri() != null && !contacto.getFotoUri().isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.parse(contacto.getFotoUri()), "image/*");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Imagen")
+                    .setMessage("Este contacto no tiene imagen")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
     }
 
     private void compartir(Contacto c) {

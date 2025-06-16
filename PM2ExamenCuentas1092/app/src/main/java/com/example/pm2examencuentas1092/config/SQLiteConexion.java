@@ -59,12 +59,25 @@ public class SQLiteConexion extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Contacto c = new Contacto();
-                c.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                c.setPais(cursor.getString(cursor.getColumnIndex("pais")));
-                c.setNombre(cursor.getString(cursor.getColumnIndex("nombre")));
-                c.setTelefono(cursor.getString(cursor.getColumnIndex("telefono")));
-                c.setNota(cursor.getString(cursor.getColumnIndex("nota")));
-                c.setFotoUri(cursor.getString(cursor.getColumnIndex("fotoUri")));
+                
+                int idIndex = cursor.getColumnIndex("id");
+            if (idIndex >= 0) c.setId(cursor.getInt(idIndex));
+                
+                int paisIndex = cursor.getColumnIndex("pais");
+                if (paisIndex >= 0) c.setPais(cursor.getString(paisIndex));
+                
+                int nombreIndex = cursor.getColumnIndex("nombre");
+                if (nombreIndex >= 0) c.setNombre(cursor.getString(nombreIndex));
+                
+                int telefonoIndex = cursor.getColumnIndex("telefono");
+                if (telefonoIndex >= 0) c.setTelefono(cursor.getString(telefonoIndex));
+                
+                int notaIndex = cursor.getColumnIndex("nota");
+                if (notaIndex >= 0) c.setNota(cursor.getString(notaIndex));
+                
+                int fotoUriIndex = cursor.getColumnIndex("fotoUri");
+                if (fotoUriIndex >= 0) c.setFotoUri(cursor.getString(fotoUriIndex));
+                
                 list.add(c);
             } while (cursor.moveToNext());
         }

@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="paises_array">
-        <item>Honduras (504)</item>
-        <item>El Salvador (503)</item>
-        <item>Guatemala (502)</item>
-        <item>Nicaragua (505)</item>
-        <item>Costa Rica (506)</item>
+        <item>Colombia</item>
+        <item>México</item>
+        <item>España</item>
+        <item>Argentina</item>
+        <item>Chile</item>
+        <item>Perú</item>
+        <item>Venezuela</item>
+        <item>Ecuador</item>
+        <item>Bolivia</item>
+        <item>Uruguay</item>
+        <item>Paraguay</item>
+        <item>Costa Rica</item>
+        <item>Panama</item>
+        <item>Guatemala</item>
+        <item>Honduras</item>
+        <item>El Salvador</item>
+        <item>Nicaragua</item>
+        <item>República Dominicana</item>
+        <item>Cuba</item>
+        <item>Estados Unidos</item>
+        <item>Canadá</item>
+        <item>Brasil</item>
+        <item>Otro</item>
     </string-array>
 </resources>

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,8 @@ public class AgregarContactoActivity extends AppCompatActivity {
 
         conexion = new SQLiteConexion(this);
 
+        aplicarFiltrosEntrada();
+
         btnSeleccionarImagen.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, PICK_IMAGE);
@@ -72,6 +76,34 @@ public class AgregarContactoActivity extends AppCompatActivity {
         }
     }
 
+    private void aplicarFiltrosEntrada() {
+        InputFilter filtroNombre = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.toString(source.charAt(i)).matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]")) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        etNombre.setFilters(new InputFilter[]{filtroNombre, new InputFilter.LengthFilter(50)});
+
+        InputFilter filtroTelefono = new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isDigit(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        etTelefono.setFilters(new InputFilter[]{filtroTelefono, new InputFilter.LengthFilter(10)});
+    }
+
     private void guardarContacto() {
         String pais     = spPais.getSelectedItem().toString().trim();
         String nombre   = etNombre.getText().toString().trim();
@@ -81,17 +113,17 @@ public class AgregarContactoActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(pais) || TextUtils.isEmpty(nombre) || TextUtils.isEmpty(telefono)) {
             new AlertDialog.Builder(this)
-                    .setTitle("Error")
+                    .setTitle("Campos Obligatorios")
                     .setMessage("País, Nombre y Teléfono son obligatorios.")
                     .setPositiveButton("OK", null)
                     .show();
             return;
         }
 
-        if (!telefono.matches("\\d{7,10}")) {
+        if (telefono.length() < 7) {
             new AlertDialog.Builder(this)
                     .setTitle("Teléfono inválido")
-                    .setMessage("Debe tener entre 7 y 10 dígitos.")
+                    .setMessage("El teléfono debe tener al menos 7 dígitos.")
                     .setPositiveButton("OK", null)
                     .show();
             return;
@@ -100,10 +132,10 @@ public class AgregarContactoActivity extends AppCompatActivity {
         Contacto c = new Contacto(pais, nombre, telefono, nota, fotoUri);
         long id = conexion.insertContacto(c);
         if (id > 0) {
-            Toast.makeText(this, "Guardado con ID=" + id, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Contacto guardado exitosamente", Toast.LENGTH_LONG).show();
             finish();
         } else {
-            Toast.makeText(this, "Error al guardar contacto.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error al guardar contacto", Toast.LENGTH_LONG).show();
         }
     }
 }

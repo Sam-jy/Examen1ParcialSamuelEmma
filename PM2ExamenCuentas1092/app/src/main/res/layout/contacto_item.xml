@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/ivFotoItem"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_person"
         android:scaleType="centerCrop"
         android:background="@drawable/foto_border" />
@@ -25,14 +26,17 @@
             android:id="@+id/tvNombreItem"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:textColor="#333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvPaisTelItem"
             android:textSize="14sp"
+            android:textColor="#666666"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp" />
 
     </LinearLayout>
 
@@ -42,6 +46,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_more_vert"
         android:background="@null"
+        android:padding="8dp"
         android:contentDescription="Opciones" />
 
 </LinearLayout>
